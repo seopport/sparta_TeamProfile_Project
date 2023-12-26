@@ -12,9 +12,7 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/layout.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
@@ -367,7 +365,7 @@
         import { doc, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
         import { deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-        // Firebase 구성 정보 설정
+        // Firebase 구성 정보 설정(지원)
         // const firebaseConfig = {
         //     apiKey: "AIzaSyCsyJwGvrCuJzB6OIY9tOT589uRIzLZfvM",
         //     authDomain: "sparta-b8657.firebaseapp.com",
@@ -405,31 +403,31 @@
         const db = getFirestore(app);
 
         /* ====================================== */
-         
-        function uploadFeed(fd) {
-            $.ajax({
-                url: "https://seopport.github.io/sparta_TeamProfile_Project/",
-                data: fd,
-                method: "POST",
-                processData: false,
-                contentType: false,
-                success: function (data) {
-                    console.log("성공");
-                },
-                error: function (request, status, error) {
-                    console.log("에러");
-                },
-                complete: function () {
-                    closeModal();
-                    // location.reload();
-                    // 리로드하고싶은 div 아이디값 적용 !! 
-                    $('#recorded-comments').load(location.href + ' #recorded-comments');
-                    // 두번째 ' #left_body' 앞 공백까지 포함하기 !!!
-                }
-            })
 
-            
-        };
+        // function uploadFeed(fd) {
+        //     $.ajax({
+        //         url: "https://seopport.github.io/sparta_TeamProfile_Project/",
+        //         data: fd,
+        //         method: "POST",
+        //         processData: false,
+        //         contentType: false,
+        //         success: function (data) {
+        //             console.log("성공");
+        //         },
+        //         error: function (request, status, error) {
+        //             console.log("에러");
+        //         },
+        //         complete: function () {
+        //             //closeModal();
+        //             // location.reload();
+        //             // 리로드하고싶은 div 아이디값 적용 !! 
+        //             $('#recorded-comments').load(location.href + ' #recorded-comments');
+        //             // 두번째 ' #left_body' 앞 공백까지 포함하기 !!!
+        //         }
+        //     })
+
+
+        // };
 
         /* ====================================== */
 
@@ -482,14 +480,29 @@
 
                 alert("방명록을 남겼어요.")
 
-                uploadFeed(doc);
-                //window.location.reload();
+                let loc = "https://seopport.github.io/sparta_TeamProfile_Project/"
+                //$( "#recorded-comments" ).load( "index.html" );
+                window.location.reload();
                 //plan b 새로고침 안해도 리로드
 
                 //남기기 누르면 썼던 내용만 지워지게
                 $('#content').val('');
             }
         });
+
+        // collection(db, "guesbook_content").onSnapshot(function (snapshot) {
+        //     var container = document.getElementById("recorded-comment");
+        //     container.innerHTML = ""; // 컨테이너 초기화
+            
+        //     updateDoc(doc(db, "guestbook_contents", id)
+
+        //     snapshot.forEach(function (doc) {
+        //         var data = doc.data();
+        //         var div = document.createElement("recorded-comments-box");
+        //         div.textContent = data.content; // 'yourFieldName'을 적절한 필드 이름으로 변경
+        //         container.appendChild(div);
+        //     });
+        // });
 
 
         /* 방명록 날짜순으로 정렬 */
@@ -511,20 +524,20 @@
             let h_m = datelist.slice(3, 5).join(':'); // ex) 13:22
 
             let temp_html = `
-          <div class="recorded-comments-box">
-              <div class="userinfo">
+                <div class="recorded-comments-box">
+                 <div class="userinfo">
                   <div class="name">${nickname}</div>
                   <div class="date">${y_m_d + ' ' + h_m}</div>
-              </div>
-              <textarea class="comments-area" readonly>${content}</textarea>
-              <input class="docId" type="hidden" value="${doc.id}">
-              <div class="delete">
+                </div>
+                <textarea class="comments-area" readonly>${content}</textarea>
+                <input class="docId" type="hidden" value="${doc.id}">
+                <div class="delete">
                   <input class="pw-check" type="password" placeholder="비밀번호"></input>
                   <button type="button" class="deletebtn">삭제</button>
                   <button type="button" class="modifyBtn">수정</button>
                   <button type="button" class="confirmBtn">수정완료</button>
                   <button type="button" class="cancelBtn">수정취소</button>
-              </div>
+                </div>
           </div>
           `;
             $('#recorded-comments').append(temp_html);
