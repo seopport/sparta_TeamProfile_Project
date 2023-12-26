@@ -427,6 +427,8 @@
                     // 두번째 ' #left_body' 앞 공백까지 포함하기 !!!
                 }
             })
+
+            
         };
 
         /* ====================================== */
@@ -479,7 +481,9 @@
                 await addDoc(collection(db, "guestbook_contents"), doc)
 
                 alert("방명록을 남겼어요.")
-                window.location.reload();
+
+                uploadFeed(doc);
+                //window.location.reload();
                 //plan b 새로고침 안해도 리로드
 
                 //남기기 누르면 썼던 내용만 지워지게
