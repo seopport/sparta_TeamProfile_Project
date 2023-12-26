@@ -429,19 +429,9 @@
 
                 alert("방명록을 남겼어요.")
 
-                function refresh() {
-                    $.ajax({
-                        url: "https://seopport.github.io/sparta_TeamProfile_Project/",
-                        dataType: "text",
-                        success: function (temp_html) {
-                            $('#comments-area').replaceWith($.parseHTML(temp_html));
-                            setTimeout(refresh, 2000);
-                        }
-                    });
-                }
-                refresh();
+                
 
-                //window.location.reload();
+                window.location.reload();
                 //plan b 새로고침 안해도 리로드
 
                 //남기기 누르면 썼던 내용만 지워지게
@@ -467,8 +457,6 @@
             let h_m = datelist.slice(3, 5).join(':'); // ex) 13:22
 
 
-
-
             let temp_html = `
           <div class="recorded-comments-box">
             <div class="userinfo">
@@ -490,7 +478,6 @@
             $('#recorded-comments').append(temp_html);
             console.log(row);
         });
-
 
 
         let prevData = ''; //수정 전 데이터
